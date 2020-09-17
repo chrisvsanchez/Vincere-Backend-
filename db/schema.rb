@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 2020_09_16_205643) do
     t.string "location_name"
     t.string "address"
     t.string "event_time"
+    t.string "description"
+    t.string "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -30,17 +32,18 @@ ActiveRecord::Schema.define(version: 2020_09_16_205643) do
     t.integer "price"
     t.string "image1"
     t.string "image2"
+    t.integer "quantity"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "order_items", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "order_id", null: false
     t.bigint "item_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["item_id"], name: "index_order_items_on_item_id"
-    t.index ["user_id"], name: "index_order_items_on_user_id"
+    t.index ["order_id"], name: "index_order_items_on_order_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -68,7 +71,7 @@ ActiveRecord::Schema.define(version: 2020_09_16_205643) do
   end
 
   add_foreign_key "order_items", "items"
-  add_foreign_key "order_items", "users"
+  add_foreign_key "order_items", "orders"
   add_foreign_key "sign_up_for_events", "events"
   add_foreign_key "sign_up_for_events", "users"
 end
