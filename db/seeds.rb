@@ -44,7 +44,7 @@ Item.create({
     description:" Ideally situated for warm-weather riding, its lightweight and breathable Type.157 Stripe textile is a stretchy circular knit so it's quick to dry while offering UPF35 protection against the sun's rays. If the thermostat is still a little too high on long climbs, the slim, full-length zipper allows you to easily dump heat. It's cut in the refined Assos Regular Fit that offers plenty of range of motion and is extremely comfortable while in the cycling position. Perfect for those long training rides when you don't want or need an aggressive aero jersey and instead value comfort over saving seconds.Made for Men.",
     price: 120,
     image1:"https://content.competitivecyclist.com/images/items/900/AAS/AAS009I/BLA.jpg",
-    image2:"https://content.competitivecyclist.com/images/items/900/AAS/AAS009I/BLA_D1.jpg "
+    image2:"https://content.competitivecyclist.com/images/items/900/AAS/AAS009I/BLA_D1.jpg"
 })
 Item.create({
     quantity:10,
