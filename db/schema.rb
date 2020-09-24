@@ -47,10 +47,12 @@ ActiveRecord::Schema.define(version: 2020_09_16_205643) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "user"
-    t.string "belongs_to"
+    t.bigint "user_id", null: false
+    t.integer "total"
+    t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "sign_up_for_events", force: :cascade do |t|
@@ -66,12 +68,14 @@ ActiveRecord::Schema.define(version: 2020_09_16_205643) do
     t.string "password_digest"
     t.string "name"
     t.string "email"
+    t.string "address"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   add_foreign_key "order_items", "items"
   add_foreign_key "order_items", "orders"
+  add_foreign_key "orders", "users"
   add_foreign_key "sign_up_for_events", "events"
   add_foreign_key "sign_up_for_events", "users"
 end

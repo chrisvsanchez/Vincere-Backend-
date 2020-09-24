@@ -17,24 +17,30 @@ puts "Creating Users"
 User.create({
     name: "Chris Sanchez",
     email: "christiansanchez@gmail.com",
-    password: "abc123"
+    password: "abc123",
+    address: Faker::Address.full_address,
 })
 User.create({
     name: "Emely Sanchez",
     email: "emelysanchez@gmail.com",
-    password: "abc1234"
+    password: "abc1234",
+    address: Faker::Address.full_address,
 })
 User.create({
     name: "Aidan Dexter",
     email: "aidanDexter@gmail.com",
-    password: "abc12345"
+    password: "abc12345",
+    address: Faker::Address.full_address,
 })
+
 puts "Users created"
 puts "Creating orders"
 10.times do 
-Order.create(
-    user: User.all.sample.id
-)
+Order.create({
+    user_id: User.all.sample.id,
+    address: Faker::Address.full_address,
+    total: 100
+})
 end 
 puts "Order Complete"
 puts "Creating items"
@@ -208,7 +214,7 @@ Item.create({
 })
 puts "Created items"
 puts "creating orderitem"
-10.times do 
+25.times do 
 OrderItem.create({
     order_id: Order.all.sample.id, 
     item_id: Item.all.sample.id

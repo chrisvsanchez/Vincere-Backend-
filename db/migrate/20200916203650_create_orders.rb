@@ -1,9 +1,9 @@
 class CreateOrders < ActiveRecord::Migration[6.0]
   def change
     create_table :orders do |t|
-      t.string :user
-      t.string :belongs_to
-
+      t.belongs_to :user, null: false, foreign_key: true
+      t.integer :total
+      t.string :address
       t.timestamps
     end
   end
