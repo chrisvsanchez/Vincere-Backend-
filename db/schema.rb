@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 2020_09_16_205643) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.string "description"
-    t.integer "price"
+    t.float "price"
     t.string "image1"
     t.string "image2"
     t.integer "quantity"
@@ -48,8 +48,11 @@ ActiveRecord::Schema.define(version: 2020_09_16_205643) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "total"
+    t.float "total"
+    t.float "subtotal"
+    t.float "tax"
     t.string "address"
+    t.string "confirmation"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"

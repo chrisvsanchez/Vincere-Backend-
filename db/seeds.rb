@@ -33,13 +33,25 @@ User.create({
     address: Faker::Address.full_address,
 })
 
+
+10.times do
+User.create({
+    name: Faker::Name.name  ,
+    email: Faker::Internet.email,
+    password: "abc12345",
+    address: Faker::Address.full_address,
+})
+end
 puts "Users created"
 puts "Creating orders"
 10.times do 
 Order.create({
     user_id: User.all.sample.id,
     address: Faker::Address.full_address,
-    total: 100
+    total: 100,
+    subtotal:90,
+    tax: 10,
+    confirmation: Faker::Code.asin 
 })
 end 
 puts "Order Complete"
@@ -224,43 +236,40 @@ puts " created orderitems"
 puts "creating Events"
 
 Event.create({
-    date: "September 15, 2020",
-    description: "bli blah blah ",
-    name:"Boogie Down Bronx Alley Cat" ,
-    location_name:"Vancortlandt Park",
+    name:"Bear Mountain Climb 60k",
+    location_name: "Bear Mountain",
+    address:"Palisades Parkway or Route 9W North
+    Bear Mountain, NY 10911",
+    event_time: "7:00 AM",
+    description:"Bear Mountain State Park
+    Bear Mountain State Park is situated in rugged mountains rising from the west bank of the Hudson River. The park features a large play field, shaded picnic groves, lake and river fishing access, a swimming pool, Trailside Museums and Zoo, hiking, biking and cross-country ski trails. An outdoor rink is open to ice skaters from late October through mid-March. The Perkins Memorial Tower atop Bear Mountain affords spectacular views of the park, the Hudson Highlands and Harriman State Park. Perkins Memorial Drive and Tower are open from April through late November, weather permitting.
+    
+    The Merry-Go-Round at Bear Mountain State Park features hand painted scenes of the park an 42 hand carved seats of native animals including black bear, wild turkey, deer, raccoon, skunk, Canada goose, fox, swan, bobcat, rabbit and more. For general information and booking birthday parties at the Merry-Go-Round, please contact Guest Services at the Bear Mountain Inn at 845-786-2731.", 
+    date:"October 3, 2020",
+})
+Event.create({
+    name:"North County Trailway 70k",
+    location_name: "Van Courtlandt Park ",
     address:"Broadway and, Van Cortlandt Park S, The Bronx, NY 10471",
-    event_time:"5pm"
+    event_time: "6:00 AM",
+    description:"Van Courtlandt Park connects to the North County Trailway via the recently restored Putnam bike path. The route can take you as far as Vermont and ,Massachusetts. ", 
+    date:"October 10, 2020"
 })
 Event.create({
-    date: "September 15, 2020",
-    description: "bli blah blah ",
-    name:"Red Hook Crit" ,
-    location_name:"Red Hook",
-    address:"214 Conover St Red Hook, Brooklyn",
-    event_time:"7pm"
+    name:"Vincere's Annual Century Ride",
+    location_name: "Huddy Park in Highlands, New Jersey",
+    address:"329 Bay Ave 325, Highlands, NJ 077321",
+    event_time: "6:00 AM",
+    description:"A beautiful ride through over 100 miles of beautiful farmland. Those in New York can meet by the ferry in Battery Park, while those with vehicles can meet us at the designated location, Huddy Park", 
+    date:"October 17, 2020"
 })
-Event.create({
-    date: "September 15, 2020",
-    description: "bli blah blah ",
-    name:"Cranks Giving" ,
-    location_name:"Times Square",
-    address:"Manhattan, NY 10036",
-    event_time:"3pm"
-})
-Event.create({
-    date: "September 15, 2020",
-    description: "bli blah blah ",
-    name:"100 Mile Ride" ,
-    location_name:"Vancortlandt Park",
-    address:"Broadway and, Van Cortlandt Park S, The Bronx, NY 10471",
-    event_time:"3pm"
-})
-puts "completed creating events"
-puts "creating signUp for events"
-10.times do 
-    SignUpForEvent.create({
-    user_id: User.all.sample.id, 
+puts "Events created"
+puts "Creating Sign up Events"
+
+5.times do 
+SignUpForEvent.create({
+    user_id: User.all.sample.id != 3, 
     event_id: Event.all.sample.id
 })
 end 
-puts "completed sign up for events "
+puts "created sign up events"

@@ -10,7 +10,9 @@ class OrderItemsController < ApplicationController
         render json: orderItem
     end
     def create 
+        # byebug
         orderItem = OrderItem.create(orderItems_params)
+        # byebug
         render json: orderItem
     
     end
