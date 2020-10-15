@@ -32,6 +32,12 @@ User.create({
     password: "abc12345",
     address: Faker::Address.full_address,
 })
+User.create({
+    name: "Chris Hendricks",
+    email: "chris@gmail.com",
+    password: "123",
+    address: Faker::Address.full_address,
+})
 
 
 10.times do

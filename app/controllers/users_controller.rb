@@ -11,7 +11,26 @@ class UsersController < ApplicationController
     end
 
     def create 
-
+        user = User.create(
+         email: params[:email],
+         name: params[:name],
+         address: params[:address],
+         password: params[:password]
+        )
+        if user.valid?
+            render json: user, status: :created
+        else
+            render json: {message: user.error.full_messages},status: :bad_request 
+        end
+    end
+    def login
+        # byebug
+       usery = User.find_by(email: params[:email])
+       if usery && usery.authenticate(params[:password])
+            render json: usery
+        else
+            render json: {message: "Invalid username or password"}, status: :unauthorized 
+        end
     end
 
     def update 
@@ -24,7 +43,6 @@ class UsersController < ApplicationController
     def destroy 
 
     end
-
     
     private 
     def user_params 
