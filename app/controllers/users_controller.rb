@@ -32,7 +32,14 @@ class UsersController < ApplicationController
             render json: {message: "Invalid username or password"}, status: :unauthorized 
         end
     end
-
+    def autologin
+         loggedInUser = User.find_by(id: params[:id])
+         if loggedInUser
+            render json: loggedInUser
+         else 
+            render json: {message: "Not logged in"}, status: :unauthorized
+         end
+    end
     def update 
         user = User.find(params[:id])
         user.update(user_params)
