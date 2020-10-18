@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-
+# before_action :authenticate, only: [:autologin]
     def index 
         users = User.all
         render json: users
@@ -18,27 +18,42 @@ class UsersController < ApplicationController
          password: params[:password]
         )
         if user.valid?
-            render json: user, status: :created
+            token = JWT.encode({user_id: user.id}, "so_secret", 'HS256')
+     
+            render json: {user: UserSerializer.new(user), token:token}, status: :created
         else
-            render json: {message: user.error.full_messages},status: :bad_request 
+            render json: {error: user.error.full_messages},status: :bad_request 
         end
     end
     def login
-        # byebug
+      
        usery = User.find_by(email: params[:email])
        if usery && usery.authenticate(params[:password])
-            render json: usery
+        token = JWT.encode({user_id: usery.id}, "so_secret", 'HS256')
+     
+            render json: {user: UserSerializer.new(usery), token:token}
         else
             render json: {message: "Invalid username or password"}, status: :unauthorized 
         end
     end
     def autologin
-         loggedInUser = User.find_by(id: params[:id])
+        # extract auth header
+        auth_header = request.headers['Authorization']
+        # get the token from the headers
+        token = auth_header.split('')[1]
+        #decode token using JWT library
+        decoded_token = JWT.decode(token, 
+        "so_secret", true, {algorthim: 'HS256'})
+        #get user id from the decoded token 
+        user_id = decoded_token[0]["user_id"]
+        
+        loggedInUser = User.find_by(id: user_id)
          if loggedInUser
             render json: loggedInUser
          else 
             render json: {message: "Not logged in"}, status: :unauthorized
          end
+
     end
     def update 
         user = User.find(params[:id])
