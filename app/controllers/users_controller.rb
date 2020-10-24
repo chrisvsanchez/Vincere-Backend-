@@ -40,7 +40,7 @@ class UsersController < ApplicationController
         # extract auth header
         auth_header = request.headers['Authorization']
         # get the token from the headers
-        token = auth_header.split('')[1]
+        token = auth_header.split(' ')[1]
         #decode token using JWT library
         decoded_token = JWT.decode(token, 
         "so_secret", true, {algorthim: 'HS256'})
@@ -48,8 +48,9 @@ class UsersController < ApplicationController
         user_id = decoded_token[0]["user_id"]
         
         loggedInUser = User.find_by(id: user_id)
-         if loggedInUser
+        if loggedInUser
             render json: loggedInUser
+            # byebug
          else 
             render json: {message: "Not logged in"}, status: :unauthorized
          end

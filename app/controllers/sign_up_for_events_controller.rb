@@ -9,10 +9,17 @@ class SignUpForEventsController < ApplicationController
         render json: orderitem
     end
     def create
-        sign = SignUpForEvent.create(user_id: params[:user_id], event_id: params[:event_id])
-# if sign.valid then run likes 14 and 15 else catch error, you already signed up for this event
+        event = Event.find(params[:event_id])
         user = User.find(params[:user_id])
-        render json: user
+        if event.users.find_by(id:[params[:user_id]])
+        
+            render json: {status: "error", code: 3000, message:"You've already registered for the #{event.name}. Check your account for details"}
+        else
+            byebug
+            sign = SignUpForEvent.create(user_id: params[:user_id], event_id: params[:event_id])
+
+            render json: user
+        end
     end
 
 

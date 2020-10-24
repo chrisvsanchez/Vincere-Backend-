@@ -1,24 +1,39 @@
-# README
+# Vincere Cycling Club
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An e-commerce and event website that contributes to fostering an online cycling community.
 
-Things you may want to cover:
+## Motivation
 
-* Ruby version
+## Build Status
 
-* System dependencies
+## Screenshots
 
-* Configuration
+## Tech/Framework
 
-* Database creation
+### Built with:
 
-* Database initialization
+1.  Javascript
+    - Frameworks:
+      - React
+        - Libraries
+          - [Toastify](https://www.npmjs.com/package/react-toastify)
+          - [Moment](https://www.npmjs.com/package/react-moment)
+          - [Semantic UI React](https://react.semantic-ui.com/)
+2.  Ruby
 
-* How to run the test suite
+    - Frameworks:
+      - Ruby on Rails
+        - Gems
+          - [Faker](https://github.com/faker-ruby/faker)
+          - [Bycrpt](https://github.com/codahale/bcrypt-ruby)
+          - []
 
-* Services (job queues, cache servers, search engines, etc.)
+3.  Database
+    - PostgreSQL
+4.  CSS
 
-* Deployment instructions
+## Installation
 
-* ...
+## API reference
+
+1. [Mapbox API](https://docs.mapbox.com/api/)
