@@ -14,7 +14,7 @@ An e-commerce and event website that contributes to fostering an online cycling 
 
 1.  Javascript
     - Frameworks:
-      - React
+      - [React](https://reactjs.org/)
         - Libraries
           - [Toastify](https://www.npmjs.com/package/react-toastify)
           - [Moment](https://www.npmjs.com/package/react-moment)
@@ -22,11 +22,11 @@ An e-commerce and event website that contributes to fostering an online cycling 
 2.  Ruby
 
     - Frameworks:
-      - Ruby on Rails
+      - [Ruby on Rails](https://guides.rubyonrails.org/getting_started.html)
         - Gems
           - [Faker](https://github.com/faker-ruby/faker)
           - [Bycrpt](https://github.com/codahale/bcrypt-ruby)
-          - []
+          - [JWT]()
 
 3.  Database
     - PostgreSQL
