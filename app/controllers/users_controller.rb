@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-# before_action :authenticate, only: [:autologin]
+skip_before_action :authenticate, only: [:create, :login]
 
     def index 
         users = User.all
@@ -68,4 +68,5 @@ class UsersController < ApplicationController
     def user_params 
         params.permit(:name, :email)
     end
+  
 end
