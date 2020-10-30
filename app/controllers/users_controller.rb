@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
 # before_action :authenticate, only: [:autologin]
+
     def index 
         users = User.all
         render json: users
@@ -17,25 +18,26 @@ class UsersController < ApplicationController
          address: params[:address],
          password: params[:password]
         )
-        if user.valid?
-            token = JWT.encode({user_id: user.id}, "so_secret", 'HS256')
-     
-            render json: {user: UserSerializer.new(user), token:token}, status: :created
-        else
-            render json: {error: user.error.full_messages},status: :bad_request 
-        end
+            if user.valid?
+                token = JWT.encode({user_id: user.id}, "so_secret", 'HS256')
+        
+                render json: {user: UserSerializer.new(user), token:token}, status: :created
+            else
+                render json: {error: user.error.full_messages},status: :bad_request 
+            end
     end
-    def login
-      
+
+    def login 
        usery = User.find_by(email: params[:email])
-       if usery && usery.authenticate(params[:password])
-        token = JWT.encode({user_id: usery.id}, "so_secret", 'HS256')
+        if usery && usery.authenticate(params[:password])
+            token = JWT.encode({user_id: usery.id}, "so_secret", 'HS256')
      
             render json: {user: UserSerializer.new(usery), token:token}
         else
             render json: {message: "Invalid username or password"}, status: :unauthorized 
         end
     end
+
     def autologin
         # extract auth header
         auth_header = request.headers['Authorization']
@@ -46,28 +48,23 @@ class UsersController < ApplicationController
         "so_secret", true, {algorthim: 'HS256'})
         #get user id from the decoded token 
         user_id = decoded_token[0]["user_id"]
-        
         loggedInUser = User.find_by(id: user_id)
-        if loggedInUser
-            render json: loggedInUser
-            # byebug
-         else 
-            render json: {message: "Not logged in"}, status: :unauthorized
-         end
-
+            if loggedInUser
+                render json: loggedInUser
+                # byebug
+            else 
+                render json: {message: "Not logged in"}, status: :unauthorized
+            end
     end
+
     def update 
         user = User.find(params[:id])
         user.update(user_params)
- 
         render json: user
     end
 
-    def destroy 
-
-    end
-    
     private 
+
     def user_params 
         params.permit(:name, :email)
     end

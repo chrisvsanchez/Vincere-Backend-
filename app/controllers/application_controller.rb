@@ -29,5 +29,4 @@ class ApplicationController < ActionController::API
     # def set_current_user!(id)
     #         @current_user = User.find(id)
     #     end
-    # end
 end
