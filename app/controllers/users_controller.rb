@@ -28,17 +28,26 @@ class UsersController < ApplicationController
     end
 
     def login 
-        byebug
+        # byebug
         user = User.find_by(email: params[:email])
-
+        
         if user && user.authenticate(params[:password])
-        render json: user
+            render json: user
         else
             render json: {message: "wrong username or password"}, status: :unauthorized 
+        end
     end
-end
+    
+    def autologin
+        user = User.find_by(id: params[:id])
+        if user
+            render json: user 
+        else
+            render json: {message: "Not logged in}, status: :unauthorized"}
+            end
+        end
     def update 
-        user = User.find(params[:id])
+        user = User.find(id: params[:id])
         user.update(user_params)
         render json: user
     end
