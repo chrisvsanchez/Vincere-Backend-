@@ -32,14 +32,23 @@ class UsersController < ApplicationController
         user = User.find_by(email: params[:email])
         
         if user && user.authenticate(params[:password])
-            render json: user
+            token = JWT.encode({user_id: user.id}, "so_secret", 'HS256')
+            render json: {user: UserSerializer.new(user), token: token}
         else
             render json: {message: "wrong username or password"}, status: :unauthorized 
         end
     end
     
     def autologin
-        user = User.find_by(id: params[:id])
+      
+        auth_header = request.headers['Authorization']
+        token = auth_header.split(" ")[1]
+
+        decoded_token = JWT.decode(token, "so_secret", true, {algorthim: 'HS256'})
+        user_id =decoded_token[0]["user_id"]
+        user = User.find_by(id: user_id)
+        
+        
         if user
             render json: user 
         else
