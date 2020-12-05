@@ -20,8 +20,10 @@ class UsersController < ApplicationController
          password: params[:password],
         )
         if user.valid?
-            render json: user
-            render json: user, status: :created
+            
+            token = JWT.encode({user_id: user.id}, "so_secret", 'HS256')
+            render json: {user: UserSerializer.new(user), token: token}
+            
         else
                 render json: {message: user.errors.full_messages}, status: :bad_request 
         end
