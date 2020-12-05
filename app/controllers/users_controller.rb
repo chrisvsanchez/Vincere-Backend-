@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     end
 
     def create 
-        byebug
+ 
         user = User.create(
          email: params[:email],
          name: params[:name],
@@ -20,7 +20,7 @@ class UsersController < ApplicationController
          password: params[:password],
         )
         if user.valid?
-    
+            render json: user
             render json: user, status: :created
         else
                 render json: {message: user.errors.full_messages}, status: :bad_request 
