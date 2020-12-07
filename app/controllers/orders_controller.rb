@@ -9,16 +9,19 @@ class OrdersController < ApplicationController
         render json: user
     end
     def create 
-        # byebug
+     
+        decoded_token = JWT.decode(params[:user_id], "so_secret", true, {algorthim: 'HS256'})
+    
+        user_token = decoded_token[0]["user_id"]
+   
         order = Order.create(
             address: params[:address], 
-            user_id: params[:user_id], 
+            user_id: user_token, 
             total: params[:total], 
             subtotal: params[:subtotal],
             tax: params[:tax],
             confirmation: Faker::Code.asin)
-            # byebugexit
-            
+     
             params[:cart].each do |item_id|
              item = Item.find(item_id)
                 order.items << item 

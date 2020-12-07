@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :order_items
   resources :items
   resources :orders
-  resources :users, only: [:create]
+  resources :users
   post "/login", to: "users#login"
   get "/autologin", to: "users#autologin"
   # post "/charges", to: "charges#create"

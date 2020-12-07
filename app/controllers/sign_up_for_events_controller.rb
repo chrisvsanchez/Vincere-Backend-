@@ -9,14 +9,18 @@ class SignUpForEventsController < ApplicationController
         render json: orderitem
     end
     def create
+    
         event = Event.find(params[:event_id])
-        user = User.find(params[:user_id])
-        if event.users.find_by(id:[params[:user_id]])
+        decoded_token = JWT.decode(params[:user_id], "so_secret", true, {algorthim: 'HS256'})
+        user_id = decoded_token[0]["user_id"]
+     
+        user = User.find(user_id)
+        if event.users.find_by(id: user_id)
         
             render json: {status: "error", code: 3000, message:"You've already registered for the #{event.name}. Check your account for details"}
         else
-            byebug
-            sign = SignUpForEvent.create(user_id: params[:user_id], event_id: params[:event_id])
+          
+            sign = SignUpForEvent.create(user_id: user_id, event_id: params[:event_id])
 
             render json: user
         end
